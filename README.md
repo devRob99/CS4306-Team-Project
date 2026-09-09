@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Yard Sail
+
+A web app for discovering local yard sales and planning an efficient route between them.
+
+Yard sales are currently announced through social media groups, which have no map, no filtering, and no way to plan a
+Saturday morning route. Yard Sail lets sellers post sales with optional item listings, and lets buyers find nearby sales
+and generate an optimized route between the ones they pick.
+
+Built for CS 4306 Software Engineering at Angelo State University.
+
+## Team
+
+| Name | Role                            |
+|---|---------------------------------|
+|Roberto C. | Backend & Database & Algorithms |
+| Juan A. | Backend & Database & Algorithms |
+| Sam G. | Frontend                        |
+| Tabitha O. | Frontend                        |
+
+## Tech Stack
+
+- **Framework:** Next.js (App Router, JavaScript)
+- **Styling:** CSS Modules
+- **Database:** Supabase
 
 ## Getting Started
 
-First, run the development server:
+**Requirements:** Node.js 20.9 or higher
 
 ```bash
+git clone <https://github.com/devRob99/CS4306-Team-Project.git>
+cd CS4306-Team-Project
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and fill in your own values:
 
-## Learn More
+```bash
+cp .env.example .env.local
+```
 
-To learn more about Next.js, take a look at the following resources:
+Never commit `.env.local` - it is gitignored for a reason.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/          Pages and API routes
+    api/        Backend endpoints
+  components/   Shared UI components
+  lib/          Database access and utilities
+public/         Static assets
+```
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm start` | Run the production build locally |
+| `npm run lint` | Check for code issues |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+- Branch off `main`: `git checkout -b feature/your-feature`
+- One pull request per feature, reviewed by a teammate before merging
+- Commit `package-lock.json` when you add a dependency
+- Keep `main` working - it should be demoable at any time
+
+## Workflow
+
+Never commit directly to `main` . For each new piece of work:
+
+```bash
+git checkout main
+git pull
+git checkout -b feature/your-feature
+
+# make changes
+git add .
+git commit -m "Describe what you did"
+git push -u origin feature/your-feature
+```
+
+Then open a Pull Request on Github and have a teammate review it before merging
