@@ -1,3 +1,4 @@
+import CreateSaleForm from "@/components/CreateSaleForm";
 import styles from "@/styles/page.module.css";
 
 export const metadata = {
@@ -11,18 +12,13 @@ export default function CreateSalePage() {
         <p className={styles.eyebrow}>Seller workflow</p>
         <h1 className={styles.title}>Create a sale</h1>
         <p className={styles.intro}>
-          This route is reserved for the sale form. Phase 2 will rebuild the
-          validated create-sale experience from the previous prototype.
+          Add the basic information buyers need to find your yard sale. This
+          form validates the draft, but it does not save to a database yet.
         </p>
       </section>
 
       <section className={styles.panel}>
-        <h2 className={styles.heading}>Form contract</h2>
-        <p className={styles.placeholder}>
-          Required fields will be title, address, date, start time, and end
-          time. Description, tags, and items will be optional. ID and created
-          date will be generated later by the backend.
-        </p>
+        <CreateSaleForm />
       </section>
     </main>
   );
