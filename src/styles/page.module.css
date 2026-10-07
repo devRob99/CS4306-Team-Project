@@ -11,7 +11,7 @@
 
 .eyebrow {
   margin-bottom: 0.75rem;
-  color: #4f6f3f;
+  color: #3F5A3A;
   font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -25,7 +25,7 @@
 
 .intro {
   max-width: 42rem;
-  color: #4b5563;
+  color: #756F66;
   font-size: 1.05rem;
   line-height: 1.6;
 }
@@ -38,9 +38,9 @@
 
 .panel {
   padding: 1.25rem;
-  border: 1px solid #d6d3c4;
-  border-radius: 8px;
-  background: #f8f7f0;
+  border: 1px solid #D9CDB8;
+  border-radius: 12px;
+  background: #FFFDF7;
 }
 
 .heading {
@@ -52,7 +52,7 @@
   display: grid;
   gap: 0.5rem;
   padding-left: 1.25rem;
-  color: #374151;
+  color: #2F2A24;
   line-height: 1.5;
 }
 
@@ -69,17 +69,17 @@
   min-height: 2.5rem;
   padding: 0.55rem 0.85rem;
   border-radius: 6px;
-  background: #656d4a;
+  background: #C65D3B;
   color: #fff;
   font-weight: 700;
   text-decoration: none;
 }
 
 .secondaryButton {
-  background: #333d29;
+  background: #3F5A3A;
 }
 
 .placeholder {
-  color: #5f6b58;
+  color: #756F66;
   line-height: 1.6;
 }

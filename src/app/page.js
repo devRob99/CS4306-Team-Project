@@ -22,7 +22,7 @@ export default function Home() {
         <p className={styles.eyebrow}>CS 4306 Team Project</p>
         <h1 className={styles.title}>Yard Sail</h1>
         <p className={styles.intro}>
-          Discover local yard sales, browse listings, and prepare a Saturday
+          Discover local yard sales, browse listings, and prepare a good
           route without digging through scattered social media posts.
         </p>
         <div className={styles.actions}>

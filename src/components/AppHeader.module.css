@@ -1,6 +1,6 @@
 .header {
-  border-bottom: 1px solid #e0dccb;
-  background: #fbfaf5;
+  border-bottom: 1px solid #D9CDB8;
+  background: #FFFDF7;
 }
 
 .inner {
@@ -18,7 +18,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  color: #222915;
+  color: #2F2A24;
   text-decoration: none;
 }
 
@@ -28,9 +28,9 @@
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
-  border: 2px solid #b6ad90;
+  border: 2px solid #C49A3A;
   border-radius: 50%;
-  background: #656d4a;
+  background: #3F5A3A;
   color: #fff;
   font-weight: 800;
 }
@@ -47,7 +47,7 @@
 
 .tagline {
   margin-top: 0.1rem;
-  color: #5e6752;
+  color: #756F66;
   font-size: 0.85rem;
 }
 
