@@ -25,7 +25,7 @@ Built for CS 4306 Software Engineering at Angelo State University.
 
 ## Getting Started
 
-**Requirements:** Node.js 20.9 or higher
+**Requirements:** Node.js 22 or higher
 
 ```bash
 git clone <https://github.com/devRob99/CS4306-Team-Project.git>
@@ -45,6 +45,57 @@ cp .env.example .env.local
 ```
 
 Never commit `.env.local` - it is gitignored for a reason.
+
+## Using Supabase
+
+The Supabase clients live in `src/lib/supabase/`. Import the one that matches where your code runs.
+
+| File | Use in | How to create it |
+|---|---|---|
+| `server.js` | Server Components, Server Actions, Route Handlers | `const supabase = await createClient()` |
+| `client.js` | Client Components (files starting with `'use client'`) | `const supabase = createClient()` |
+| `proxy.js` | Already wired up in `src/proxy.js`. It refreshes the login session on every request, so you don't need to touch it. | — |
+
+**Server Component example** (the default in `src/app`):
+
+```js
+import { createClient } from '@/lib/supabase/server'
+
+export default async function Page() {
+  const supabase = await createClient()
+  const { data: sales, error } = await supabase.from('sales').select('*')
+
+  if (error) return <p>Could not load sales.</p>
+
+  return (
+    <ul>
+      {sales.map((sale) => (
+        <li key={sale.id}>{sale.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+**Client Component example** (for interactive things like forms and buttons):
+
+```js
+'use client'
+
+import { createClient } from '@/lib/supabase/client'
+
+export default function AddSaleButton() {
+  async function handleClick() {
+    const supabase = createClient()
+    const { error } = await supabase.from('sales').insert({ title: 'New sale' })
+    if (error) console.error(error)
+  }
+
+  return <button onClick={handleClick}>Add sale</button>
+}
+```
+
+> `sales` and `title` are example names. Swap in the real table and column names from the Supabase dashboard (Table Editor).
 
 ## Project Structure
 
