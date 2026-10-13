@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "./CreateSaleForm.module.css";
+import { createClient } from "@/lib/supabase/client";
 
 const emptyForm = {
   title: "",
@@ -65,9 +66,11 @@ function buildSaleDraft(values) {
 }
 
 export default function CreateSaleForm() {
+  const supabase = createClient();
   const [values, setValues] = useState(emptyForm);
   const [errors, setErrors] = useState({});
-  const [saleDraft, setSaleDraft] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [status, setStatus] = useState(null);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -77,18 +80,56 @@ export default function CreateSaleForm() {
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const nextErrors = validateSale(values);
     setErrors(nextErrors);
+    setStatus(null);
 
     if (Object.keys(nextErrors).length > 0) {
-      setSaleDraft(null);
       return;
     }
 
-    setSaleDraft(buildSaleDraft(values));
+    const sale = buildSaleDraft(values);
+    setSaving(true);
+
+    // Save the sale and get its new id back
+    const { data: savedSale, error: saleError } = await supabase
+        .from("sales")
+        .insert({
+          title: sale.title,
+          address: sale.address,
+          sale_date: sale.date,
+          start_time: sale.startTime,
+          end_time: sale.endTime,
+          description: sale.description || null,
+          tags: sale.tags,
+        })
+        .select()
+        .single();
+
+    if (saleError) {
+      setSaving(false);
+      setStatus({ type: "error", text: "Could not save sale: " + saleError.message });
+      return;
+    }
+
+    // save each item, linked to that sale
+    if (sale.items.length > 0) {
+      const { error: itemsError } = await supabase
+          .from("sale_items")
+          .insert(sale.items.map((name) => ({ sale_id: savedSale.id, name})));
+      if (itemsError) {
+        setSaving(false);
+        setStatus({ type: "error", text: "Sale saved, but items failed: " + itemsError.message });
+        return;
+      }
+    }
+
+    setSaving(false);
+    setStatus({ type: "success", text: "Sale saved" });
+    setValues(emptyForm);
   }
 
   return (
@@ -220,19 +261,18 @@ export default function CreateSaleForm() {
           />
         </div>
 
-        <button className={styles.submit} type="submit">
-          Preview sale
+        <button className={styles.submit} type="submit" disabled={saving}>
+          {saving ? "Saving..." : "Save sale"}
         </button>
       </form>
 
-      {saleDraft ? (
-        <section className={styles.preview} aria-live="polite">
-          <h2 className={styles.previewTitle}>Sale draft looks valid</h2>
-          <p className={styles.previewText}>
-            This is only a frontend preview. The sale has not been saved.
+      {status ? (
+          <p
+            className={status.type === "error" ? styles.error : styles.previewText}
+            aria-live="polite"
+            >
+            {status.text}
           </p>
-          <pre className={styles.previewCode}>{JSON.stringify(saleDraft, null, 2)}</pre>
-        </section>
       ) : null}
     </div>
   );
