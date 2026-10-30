@@ -12,8 +12,7 @@ export default function CreateSalePage() {
         <p className={styles.eyebrow}>Seller workflow</p>
         <h1 className={styles.title}>Create a sale</h1>
         <p className={styles.intro}>
-          Add the basic information buyers need to find your yard sale. This
-          form validates the draft, but it does not save to a database yet.
+            Add the basic information buyers need to find your yard sale.
         </p>
       </section>
 
