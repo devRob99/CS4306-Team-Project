@@ -6,13 +6,14 @@ const workflowSteps = [
   "Browse nearby sales",
   "Filter by date or tags",
   "View sale details",
-  "Prepare for map and route planning",
+  "Build a Saturday stop list",
 ];
 
-const prototypeNotes = [
-  "The static HTML/CSS prototype is preserved in the html/ and css/ folders.",
-  "Future pages should be rebuilt as Next.js routes instead of editing raw HTML files.",
-  "Supabase integration is intentionally deferred until the frontend flow is stable.",
+const howItWorks = [
+  "Sellers post a sale with a date, times, address, tags, and optional items.",
+  "Buyers browse the list and filter by words, date, or tag.",
+  "Open a sale to see the description and items.",
+  "Pick at least two sales on the route page to see them in date and time order.",
 ];
 
 export default function Home() {
@@ -46,9 +47,9 @@ export default function Home() {
         </div>
 
         <div className={styles.panel}>
-          <h2 className={styles.heading}>Phase 1 Structure</h2>
+          <h2 className={styles.heading}>How it works</h2>
           <ul className={styles.list}>
-            {prototypeNotes.map((note) => (
+            {howItWorks.map((note) => (
               <li key={note}>{note}</li>
             ))}
           </ul>

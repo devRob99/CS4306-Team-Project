@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import styles from "./CreateSaleForm.module.css";
 import { createClient } from "@/lib/supabase/client";
 
@@ -122,13 +123,18 @@ export default function CreateSaleForm() {
           .insert(sale.items.map((name) => ({ sale_id: savedSale.id, name})));
       if (itemsError) {
         setSaving(false);
-        setStatus({ type: "error", text: "Sale saved, but items failed: " + itemsError.message });
+        setStatus({
+          type: "error",
+          text: "Sale saved, but items failed: " + itemsError.message,
+          saleId: savedSale.id,
+        });
+        setValues(emptyForm);
         return;
       }
     }
 
     setSaving(false);
-    setStatus({ type: "success", text: "Sale saved" });
+    setStatus({ type: "success", text: "Sale saved.", saleId: savedSale.id });
     setValues(emptyForm);
   }
 
@@ -271,7 +277,12 @@ export default function CreateSaleForm() {
             className={status.type === "error" ? styles.error : styles.previewText}
             aria-live="polite"
             >
-            {status.text}
+            {status.text}{" "}
+            {status.saleId ? (
+              <Link className={styles.statusLink} href={`/sales/${status.saleId}`}>
+                View sale
+              </Link>
+            ) : null}
           </p>
       ) : null}
     </div>

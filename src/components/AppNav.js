@@ -4,6 +4,7 @@ import styles from "./AppNav.module.css";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/browse", label: "Browse" },
+  { href: "/route", label: "Route" },
   { href: "/create", label: "Sell" },
   { href: "/login", label: "Log In" },
 ];

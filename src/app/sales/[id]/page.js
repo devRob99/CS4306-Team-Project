@@ -43,28 +43,35 @@ export default async function SaleDetailPage({ params }) {
             </section>
 
             <section className={styles.panel}>
-                <p>Address: {sale.address}</p>
-                <p>Date: {sale.sale_date}</p>
-                <p>
-                    Time: {sale.start_time} - {sale.end_time}
-                </p>
-                {sale.description ? <p>{sale.description}</p> : null}
-                {sale.tags?.length > 0 ? <p>Tags: {sale.tags.join(", ")}</p> : null}
+                <div className={styles.detailBlock}>
+                    <p className={styles.meta}>{sale.address}</p>
+                    <p className={styles.meta}>
+                        {sale.sale_date} · {sale.start_time?.slice(0, 5)} – {sale.end_time?.slice(0, 5)}
+                    </p>
+                    {sale.description ? <p>{sale.description}</p> : null}
+                    {sale.tags?.length > 0 ? (
+                        <div className={styles.tags}>
+                            {sale.tags.map((tag) => (
+                                <span className={styles.tag} key={tag}>{tag}</span>
+                            ))}
+                        </div>
+                    ) : null}
 
-                <h2 className={styles.heading}>Items</h2>
-                {items && items.length > 0 ? (
-                    <ul>
-                        {items.map((item) => (
-                            <li key={item.id}>{item.name}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No items listed.</p>
-                )}
+                    <div>
+                        <h2 className={styles.heading}>Items</h2>
+                        {items && items.length > 0 ? (
+                            <ul className={styles.itemList}>
+                                {items.map((item) => (
+                                    <li key={item.id}>{item.name}</li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className={styles.meta}>No items listed.</p>
+                        )}
+                    </div>
 
-                <p>
-                    <Link href="/browse">Back to all sales</Link>
-                </p>
+                    <Link className={styles.backLink} href="/browse">Back to all sales</Link>
+                </div>
             </section>
         </main>
     );

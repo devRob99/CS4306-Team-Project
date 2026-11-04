@@ -1,19 +1,19 @@
-import Link from 'next/link';
 import styles from "@/styles/page.module.css";
 import { createClient } from "@/lib/supabase/server";
+import BrowseSalesList from "@/components/BrowseSalesList";
 
 export const metadata = {
   title: "Browse sales | Yard Sail",
 };
 
 export default async function BrowseSalesPage() {
-    const supabase = await createClient();
+  const supabase = await createClient();
 
-    // upcoming sales first
-    const { data: sales, error } = await supabase
-        .from("sales")
-        .select("id, title, address, sale_date, start_time, end_time, tags")
-        .order("sale_date", { ascending: true });
+  // upcoming sales first
+  const { data: sales, error } = await supabase
+    .from("sales")
+    .select("id, title, address, sale_date, start_time, end_time, tags")
+    .order("sale_date", { ascending: true });
 
   return (
     <main className={styles.page}>
@@ -23,22 +23,13 @@ export default async function BrowseSalesPage() {
       </section>
 
       <section className={styles.panel}>
-          {error ? <p>Could not load sales: {error.message}</p> : null}
+        {error ? <p>Could not load sales: {error.message}</p> : null}
 
-          {sales && sales.length === 0 ? <p>No sales yet.</p> : null}
+        {!error && sales && sales.length === 0 ? <p>No sales yet.</p> : null}
 
-          <ul>
-              {sales?.map((sale) => (
-                  <li key={sale.id}>
-                      <Link href={`/sales/${sale.id}`}>{sale.title}</Link>
-                      <p>{sale.address}</p>
-                      <p>
-                          {sale.sale_date}, {sale.start_time} - {sale.end_time}
-                      </p>
-                      {sale.tags?.length > 0 ? <p>Tags: {sale.tags.join(", ")}</p> : null}
-                  </li>
-              ))}
-          </ul>
+        {!error && sales && sales.length > 0 ? (
+          <BrowseSalesList sales={sales} />
+        ) : null}
       </section>
     </main>
   );

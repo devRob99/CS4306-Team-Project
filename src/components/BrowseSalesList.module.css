@@ -1,0 +1,58 @@
+.wrap {
+  display: grid;
+  gap: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.75rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 11rem;
+  flex: 1 1 11rem;
+}
+
+.label {
+  color: #2F2A24;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.input {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid #D9CDB8;
+  border-radius: 6px;
+  background: #fff;
+  color: #2F2A24;
+  font: inherit;
+}
+
+.input:focus {
+  border-color: #3F5A3A;
+  outline: 3px solid #D8DFC1;
+}
+
+.clear {
+  min-height: 2.5rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #D9CDB8;
+  border-radius: 6px;
+  background: #FFFDF7;
+  color: #2F2A24;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.clear:hover,
+.clear:focus-visible {
+  border-color: #C65D3B;
+  outline: none;
+}

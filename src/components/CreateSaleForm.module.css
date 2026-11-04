@@ -99,6 +99,16 @@
   line-height: 1.5;
 }
 
+.statusLink {
+  color: #3F5A3A;
+  font-weight: 800;
+}
+
+.statusLink:hover,
+.statusLink:focus-visible {
+  color: #C65D3B;
+}
+
 .previewCode {
   margin-top: 0.85rem;
   padding: 1rem;
