@@ -2,7 +2,7 @@
 --
 -- Documents the `sales` and `sale_items` tables as they exist in Supabase
 -- today. Copied from the Supabase dashboard (Table Editor -> Definition view)
--- on 2026-11-05.
+-- on 2026-11-06.
 --
 -- This is NOT a migration. Do not run it against the live Supabase project;
 -- the tables already exist there. It is for reference, or for setting up an
@@ -29,6 +29,8 @@ create table public.sales (
   description text                     null,
   tags        text[]                   null default '{}'::text[],
   created_at  timestamp with time zone null default now(),
+  latitude    double precision         null,
+  longitude   double precision         null,
 
   constraint sales_pkey primary key (id),
   constraint sales_user_id_fkey foreign key (user_id)
