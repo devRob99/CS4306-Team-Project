@@ -1,4 +1,4 @@
-# TABITHA NOTES
+# Frontend NOTES
 
 ## Project
 
