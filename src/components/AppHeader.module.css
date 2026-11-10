@@ -1,59 +1,68 @@
+/* White bar across the top of every page */
 .header {
-  border-bottom: 1px solid #D9CDB8;
-  background: #FFFDF7;
+  border-bottom: var(--border-hairline);
+  background: var(--color-surface);
 }
 
+/* Keeps the header content centered, with the logo left and nav right */
 .inner {
   width: 100%;
-  max-width: 68rem;
+  max-width: var(--page-width);
   margin: 0 auto;
-  padding: 1rem;
+  padding: var(--space-4);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
+/* Logo and site name, which together link to Home */
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  color: #2F2A24;
+  gap: var(--space-3);
+  color: var(--color-text);
   text-decoration: none;
 }
 
+/* The green YS square */
 .logo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 2px solid #C49A3A;
-  border-radius: 50%;
-  background: #3F5A3A;
-  color: #fff;
-  font-weight: 800;
+  flex-shrink: 0;
+  width: var(--logo-size);
+  height: var(--logo-size);
+  border-radius: var(--radius);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
 }
 
+/* Site name and tagline each sit on their own line */
 .name,
 .tagline {
   display: block;
 }
 
 .name {
+  font-family: var(--font-heading);
   font-size: 1.2rem;
-  font-weight: 800;
+  font-weight: var(--font-weight-heading);
 }
 
 .tagline {
-  margin-top: 0.1rem;
-  color: #756F66;
-  font-size: 0.85rem;
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
 }
 
+/* Phone width: stack the nav under the logo */
 @media (max-width: 680px) {
   .inner {
     align-items: flex-start;
     flex-direction: column;
+    gap: var(--space-2);
   }
 }

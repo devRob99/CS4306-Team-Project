@@ -28,20 +28,29 @@ Login is a placeholder on purpose. Auth is outside the current MVP.
 - Browse lists sales from Supabase and links to detail
 - Sale detail loads one sale plus its items
 - Supabase clients exist: `src/lib/supabase/client.js` (browser), `server.js` (server pages), `proxy.js` (session refresh)
+- All routes have a `page.js`: `/`, `/browse`, `/sales/[id]`, `/create`, `/login`, `/route`
+- Search and filters on Browse (`src/components/BrowseSalesList.js`)
+- Create Sale success message links to the new sale
+- Simple stop list on `/route` (`src/components/RoutePlanner.js`): sorts picked sales by date and time, no route optimization
+- Theme settings live in CSS variables in `src/app/globals.css`
 
 ### Not done
 
-- Filter / search
 - Map
-- Route planning
-- Browse and detail pages are functional but barely styled
+- Route optimization
+- Restyle phases 2 to 6 below
 - Login page is a stub (keep it that way unless the team changes MVP)
 
-### Stale vs reality
+### Restyle plan (current)
 
-- Create Sale is **not** preview-only anymore. Preview was replaced by a real insert.
-- Home still says Supabase is deferred. That is outdated.
-- Next.js only treats a file named `page.js` as a route. Current files `create_page.js`, `browse_page.js`, `sales_page.js`, and `login_page.js` will **not** show at `/create`, `/browse`, `/sales/[id]`, or `/login` until they are named `page.js` again (or you add a `page.js` that re-exports them).
+This is the current plan. It replaces the older frontend phases further down where they overlap.
+
+1. Design tokens, fonts, header/nav, shared buttons
+2. `/browse` as cards (new SaleCard component, used inside `BrowseSalesList`) plus `/sales/[id]` layout, with empty and error states
+3. Home page hero and CTAs
+4. Restyle the existing search and filters on `/browse`
+5. Create form visuals, including the existing success link
+6. Mobile polish
 
 ### My Branch
 
@@ -210,8 +219,8 @@ Steps:
 
 ## Next session (start here)
 
-1. Phase 0: restore `page.js` routes and click through create → browse → detail.
-2. Phase 1: restyle browse, then sale detail.
-3. Then Phase 2 filters.
+1. Check Restyle Phase 1 in the browser, then commit it.
+2. Restyle Phase 2: `/browse` cards and `/sales/[id]` layout.
+3. Continue through the restyle plan in "Current Status", one phase at a time.
 
 ---

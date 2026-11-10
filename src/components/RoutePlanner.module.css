@@ -1,8 +1,10 @@
+/* Sale picker and stop list, stacked on phones */
 .layout {
   display: grid;
   gap: 1.5rem;
 }
 
+/* Wider screens: picker and stop list side by side */
 @media (min-width: 800px) {
   .layout {
     grid-template-columns: 1.2fr 0.8fr;
@@ -10,6 +12,7 @@
   }
 }
 
+/* One sale with its checkbox */
 .choice {
   display: flex;
   align-items: flex-start;
@@ -22,13 +25,15 @@
   gap: 0.15rem;
 }
 
+/* Box that holds the chosen stops */
 .stops {
   padding: 1rem;
-  border: 1px solid #D9CDB8;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
-  background: #fff;
+  background: var(--color-surface);
 }
 
+/* Numbered list of stops */
 .ordered {
   display: grid;
   gap: 0.9rem;

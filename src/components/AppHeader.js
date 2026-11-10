@@ -2,6 +2,8 @@ import Link from "next/link";
 import AppNav from "./AppNav";
 import styles from "./AppHeader.module.css";
 
+// Site header shown on every page: logo, site name, tagline and navigation.
+// Takes no inputs.
 export default function AppHeader() {
   return (
     <header className={styles.header}>
@@ -12,7 +14,7 @@ export default function AppHeader() {
           </span>
           <span>
             <span className={styles.name}>Yard Sail</span>
-            <span className={styles.tagline}>Local sales, better routes</span>
+            <span className={styles.tagline}>Local yard sales, all in one place</span>
           </span>
         </Link>
         <AppNav />

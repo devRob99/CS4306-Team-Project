@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "@/styles/page.module.css";
+import buttonStyles from "@/styles/buttons.module.css";
 
 const workflowSteps = [
   "Create a sale",
@@ -16,6 +17,7 @@ const howItWorks = [
   "Pick at least two sales on the route page to see them in date and time order.",
 ];
 
+// Home page at "/". Takes no inputs. Shows the intro, main buttons and how the site works.
 export default function Home() {
   return (
     <main className={styles.page}>
@@ -27,10 +29,10 @@ export default function Home() {
           route without digging through scattered social media posts.
         </p>
         <div className={styles.actions}>
-          <Link className={styles.button} href="/create">
+          <Link className={`${buttonStyles.button} ${buttonStyles.primary}`} href="/create">
             Create a sale
           </Link>
-          <Link className={`${styles.button} ${styles.secondaryButton}`} href="/browse">
+          <Link className={`${buttonStyles.button} ${buttonStyles.secondary}`} href="/browse">
             Browse sales
           </Link>
         </div>

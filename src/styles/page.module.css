@@ -1,3 +1,4 @@
+/* Centered column that holds each page's content */
 .page {
   width: 100%;
   max-width: 68rem;
@@ -5,13 +6,14 @@
   padding: 2rem 1rem 3rem;
 }
 
+/* Heading area at the top of a page */
 .hero {
   padding: 1rem 0 2rem;
 }
 
 .eyebrow {
   margin-bottom: 0.75rem;
-  color: #3F5A3A;
+  color: var(--color-primary);
   font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -25,24 +27,27 @@
 
 .intro {
   max-width: 42rem;
-  color: #756F66;
+  color: var(--color-text-muted);
   font-size: 1.05rem;
   line-height: 1.6;
 }
 
+/* Side-by-side panels on the Home page */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 1rem;
 }
 
+/* White box that holds a page's main content */
 .panel {
   padding: 1.25rem;
-  border: 1px solid #D9CDB8;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  background: #FFFDF7;
+  background: var(--color-surface);
 }
 
+/* Section heading and bullet lists inside panels */
 .heading {
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
@@ -52,10 +57,11 @@
   display: grid;
   gap: 0.5rem;
   padding-left: 1.25rem;
-  color: #2F2A24;
+  color: var(--color-text);
   line-height: 1.5;
 }
 
+/* Row of buttons. The buttons themselves are in buttons.module.css */
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -63,27 +69,13 @@
   margin-top: 1.5rem;
 }
 
-.button {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.5rem;
-  padding: 0.55rem 0.85rem;
-  border-radius: 6px;
-  background: #C65D3B;
-  color: #fff;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.secondaryButton {
-  background: #3F5A3A;
-}
-
+/* Muted placeholder text */
 .placeholder {
-  color: #756F66;
+  color: var(--color-text-muted);
   line-height: 1.6;
 }
 
+/* Sale cards on the Browse and Route pages */
 .cardList {
   display: grid;
   gap: 0.75rem;
@@ -94,13 +86,13 @@
 
 .card {
   padding: 1rem 1.1rem;
-  border: 1px solid #D9CDB8;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 .cardTitle {
-  color: #3F5A3A;
+  color: var(--color-primary);
   font-size: 1.15rem;
   font-weight: 800;
   text-decoration: none;
@@ -108,16 +100,17 @@
 
 .cardTitle:hover,
 .cardTitle:focus-visible {
-  color: #C65D3B;
-  outline: none;
+  color: var(--color-accent-strong);
 }
 
+/* Small details like address and date */
 .meta {
   margin-top: 0.35rem;
-  color: #756F66;
+  color: var(--color-text-muted);
   line-height: 1.5;
 }
 
+/* Tag pills */
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -128,12 +121,13 @@
 .tag {
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
-  background: #F7F1E3;
-  color: #3F5A3A;
+  background: var(--color-background);
+  color: var(--color-primary);
   font-size: 0.85rem;
   font-weight: 700;
 }
 
+/* Sale detail page content */
 .detailBlock {
   display: grid;
   gap: 0.85rem;
@@ -150,7 +144,7 @@
 .backLink {
   display: inline-flex;
   width: fit-content;
-  color: #C65D3B;
+  color: var(--color-accent-strong);
   font-weight: 700;
   text-decoration: none;
 }
@@ -158,5 +152,4 @@
 .backLink:hover,
 .backLink:focus-visible {
   text-decoration: underline;
-  outline: none;
 }

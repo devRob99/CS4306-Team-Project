@@ -1,3 +1,4 @@
+/* Overall form layout */
 .wrapper {
   display: grid;
   gap: 1.25rem;
@@ -14,35 +15,38 @@
   gap: 0.35rem;
 }
 
+/* Start and end time side by side */
 .timeGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
+/* Field labels and helper text */
 .label {
-  color: #222915;
+  color: var(--color-text);
   font-weight: 700;
 }
 
 .required {
-  color: #a33425;
+  color: var(--color-error);
 }
 
 .hint {
-  color: #66715f;
+  color: var(--color-text-muted);
   font-size: 0.9rem;
   line-height: 1.4;
 }
 
+/* Text boxes */
 .input,
 .textarea {
   width: 100%;
   padding: 0.65rem 0.75rem;
-  border: 1px solid #cfc9b7;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  background: #fff;
-  color: #171717;
+  background: var(--color-surface);
+  color: var(--color-text);
   font: inherit;
 }
 
@@ -53,24 +57,26 @@
 
 .input:focus,
 .textarea:focus {
-  border-color: #656d4a;
-  outline: 3px solid #d8dfc1;
+  border-color: var(--color-primary);
+  outline: 3px solid var(--color-sage);
 }
 
+/* Error messages */
 .error {
-  color: #a33425;
+  color: var(--color-error);
   font-size: 0.9rem;
   font-weight: 600;
 }
 
+/* Save button */
 .submit {
   justify-self: start;
   min-height: 2.75rem;
   padding: 0.65rem 1rem;
   border: 0;
   border-radius: 6px;
-  background: #656d4a;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   cursor: pointer;
   font: inherit;
   font-weight: 800;
@@ -78,15 +84,15 @@
 
 .submit:hover,
 .submit:focus-visible {
-  background: #333d29;
-  outline: none;
+  background: var(--color-primary-hover);
 }
 
+/* Old preview box. Not used by the form any more */
 .preview {
   padding: 1.25rem;
-  border: 1px solid #9dbe7c;
+  border: 1px solid var(--color-sage);
   border-radius: 8px;
-  background: #f3f8eb;
+  background: var(--color-background);
 }
 
 .previewTitle {
@@ -94,32 +100,35 @@
   font-size: 1.1rem;
 }
 
+/* "Sale saved" message and its link */
 .previewText {
-  color: #40503a;
+  color: var(--color-text);
   line-height: 1.5;
 }
 
 .statusLink {
-  color: #3F5A3A;
+  color: var(--color-primary);
   font-weight: 800;
 }
 
 .statusLink:hover,
 .statusLink:focus-visible {
-  color: #C65D3B;
+  color: var(--color-accent-strong);
 }
 
+/* Old preview code block. Not used by the form any more */
 .previewCode {
   margin-top: 0.85rem;
   padding: 1rem;
   overflow-x: auto;
   border-radius: 6px;
-  background: #fff;
-  color: #171717;
+  background: var(--color-surface);
+  color: var(--color-text);
   font-size: 0.9rem;
   line-height: 1.5;
 }
 
+/* Phone width: stack the time fields */
 @media (max-width: 560px) {
   .timeGrid {
     grid-template-columns: 1fr;

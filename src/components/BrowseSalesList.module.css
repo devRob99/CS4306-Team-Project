@@ -1,8 +1,10 @@
+/* Stacks the filters above the sale list */
 .wrap {
   display: grid;
   gap: 1rem;
 }
 
+/* Row of search and filter fields */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -18,34 +20,36 @@
 }
 
 .label {
-  color: #2F2A24;
+  color: var(--color-text);
   font-size: 0.85rem;
   font-weight: 700;
 }
 
+/* Search box, date picker and tag dropdown */
 .input {
   width: 100%;
   min-height: 2.5rem;
   padding: 0.45rem 0.65rem;
-  border: 1px solid #D9CDB8;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  background: #fff;
-  color: #2F2A24;
+  background: var(--color-surface);
+  color: var(--color-text);
   font: inherit;
 }
 
 .input:focus {
-  border-color: #3F5A3A;
-  outline: 3px solid #D8DFC1;
+  border-color: var(--color-primary);
+  outline: 3px solid var(--color-sage);
 }
 
+/* Clear filters button */
 .clear {
   min-height: 2.5rem;
   padding: 0.45rem 0.75rem;
-  border: 1px solid #D9CDB8;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  background: #FFFDF7;
-  color: #2F2A24;
+  background: var(--color-surface);
+  color: var(--color-text);
   cursor: pointer;
   font: inherit;
   font-weight: 700;
@@ -53,6 +57,5 @@
 
 .clear:hover,
 .clear:focus-visible {
-  border-color: #C65D3B;
-  outline: none;
+  border-color: var(--color-accent);
 }

@@ -1,24 +1,31 @@
+/* Row of links, which wraps onto a second line if space runs out */
 .nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
+/* One nav link. The clear bottom border saves room for the hover line */
 .link {
   display: inline-flex;
   align-items: center;
-  min-height: 2.25rem;
-  padding: 0.45rem 0.7rem;
-  border: 1px solid #D9CDB8;
-  border-radius: 6px;
-  color: #2F2A24;
-  font-weight: 600;
+  min-height: var(--tap-target);
+  padding: 0 var(--space-2);
+  border-bottom: 2px solid transparent;
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
+  transition: border-color var(--transition-fast);
 }
 
-.link:hover,
-.link:focus-visible {
-  border-color: #C65D3B;
-  background: #F7F1E3;
-  outline: none;
+/* Terracotta line when hovering */
+.link:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+/* The page you are on: green text with a green line */
+.current {
+  border-bottom-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-heading);
 }
