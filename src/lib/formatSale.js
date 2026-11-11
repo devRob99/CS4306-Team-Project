@@ -49,6 +49,18 @@ export function formatSaleDate(value) {
   });
 }
 
+// Shorter date for tight spaces like the Route page's stop list.
+// Takes: "2026-11-15". Returns: "Sun, Nov 15", or "" if there is no date.
+export function formatShortDate(value) {
+  const date = parseSaleDate(value);
+  if (!date) return "";
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+}
+
 // The three short pieces shown in the date badge on a sale card.
 // Takes: "2026-11-15". Returns: { weekday: "SUN", month: "NOV", day: "15" }, or null if there is no date.
 export function getDateBadge(value) {

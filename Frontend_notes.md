@@ -33,7 +33,7 @@ Login is a placeholder on purpose. Auth is outside the current MVP.
 - Create Sale success message links to the new sale
 - Simple stop list on `/route` (`src/components/RoutePlanner.js`): sorts picked sales by date and time, no route optimization
 - Theme settings live in CSS variables in `src/app/globals.css`
-- Restyle phases 1 to 5 (see the plan below)
+- Restyle phases 1 to 6 (see the plan below)
 - Shared helpers in `src/lib/formatSale.js`: readable dates and 12-hour times, today's date, and `uniqueTags()`
 - Tags are lowercased and de-duplicated when a sale is saved and when tags are shown
 - No "Saturday" wording anywhere: the `/route` page is called "Plan your stops"
@@ -42,7 +42,7 @@ Login is a placeholder on purpose. Auth is outside the current MVP.
 
 - Map (blocked on backend, see "Phase 4 — Map" in the older work plan below)
 - Route optimization (blocked on backend, see "Phase 5 — Route planning" below)
-- Restyle phases 6 and 7 below
+- Restyle phase 7 below
 - Login page is a stub (keep it that way unless the team changes MVP)
 
 ### Restyle plan (current)
@@ -54,7 +54,7 @@ This is the current plan. It replaces the older frontend phases further down whe
 3. ✅ Home page: visitor-facing hero, three "How it works" steps (Find sales, Plan your stops, Post your own), and an "Upcoming sales" preview of the next 3 sales
 4. ✅ Browse search and filters: cream filter bar, "Showing X of Y" count, removable chips for each active filter, "Clear all"
 5. ✅ Create form: three sections (The basics / When / What's for sale), placeholders and hints, live tag preview and item count, red border and focus jump on errors, green success box with "View your sale"
-6. `/route` page restyle: SaleCard-style cards, 12-hour times, empty and error boxes (still shows times like `13:00`)
+6. ✅ `/route` page: only upcoming sales, clickable picker cards with date badges, 12-hour times, sticky "Your stops" box grouped by day with numbered stops and × to remove, empty and error boxes
 7. Mobile polish: final pass at phone width on every page
 
 ### My Branch
@@ -224,8 +224,7 @@ Steps:
 
 ## Next session (start here)
 
-1. Restyle Phase 6: `/route` page.
-2. Restyle Phase 7: mobile polish on every page.
-3. Ask Roberto/Juan: are `latitude`/`longitude` (now in `supabase/schema.sql`) filled in when a sale is created, and which map library should we use? The Geoapify key is listed in `.env.example`.
+1. Restyle Phase 7: mobile polish on every page.
+2. Ask Roberto/Juan: are `latitude`/`longitude` (now in `supabase/schema.sql`) filled in when a sale is created, and which map library should we use? The Geoapify key is listed in `.env.example`.
 
 ---

@@ -1,42 +1,253 @@
-/* Sale picker and stop list, stacked on phones */
+/* Styles for RoutePlanner.js: the sale picker and stop list on the /route page */
+
+/* Picker and stop list, stacked on phones */
 .layout {
   display: grid;
   gap: 1.5rem;
 }
 
-/* Wider screens: picker and stop list side by side */
+/* Wider screens: picker on the left, stop list on the right */
 @media (min-width: 800px) {
   .layout {
     grid-template-columns: 1.2fr 0.8fr;
     align-items: start;
   }
+
+  /* The stop list stays in view while you scroll down the picker */
+  .stops {
+    position: sticky;
+    top: 1rem;
+  }
 }
 
-/* One sale with its checkbox */
+/* List of sales to pick from */
+.pickList {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One sale in the picker */
+.pickCard {
+  display: grid;
+  gap: 0.25rem;
+  padding: var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.pickCard:hover {
+  border-color: var(--color-frame);
+}
+
+/* A picked sale: sage border and a cream tint */
+.picked,
+.picked:hover {
+  border-color: var(--color-button);
+  background: var(--color-background);
+}
+
+/* Checkbox, date badge and text in one row. The whole row is the clickable label */
 .choice {
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
+  align-items: center;
+  gap: var(--space-3);
   cursor: pointer;
 }
 
-.choice div {
-  display: grid;
-  gap: 0.15rem;
+/* Bigger checkbox, tinted sage, so it's easy to tap on a phone */
+.checkbox {
+  flex-shrink: 0;
+  width: 1.35rem;
+  height: 1.35rem;
+  accent-color: var(--color-button);
+  cursor: pointer;
 }
 
-/* Box that holds the chosen stops */
+/* Small terracotta date badge (month over day), a mini version of the Browse card badge */
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.25rem;
+  height: 3.5rem;
+  border-radius: var(--radius);
+  background: var(--color-accent-strong);
+  color: var(--color-on-primary);
+  font-family: var(--font-heading);
+  line-height: 1.1;
+}
+
+.badgeSmall {
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-heading);
+  letter-spacing: 0.05em;
+}
+
+.badgeDay {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* Title and detail lines. min-width: 0 lets long text wrap instead of stretching the card */
+.info {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.pickTitle {
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* Date, time and address lines */
+.meta {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* "Details →" link under each picker card, lined up with the text */
+.detailsLink {
+  justify-self: end;
+  color: var(--color-accent-strong);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.detailsLink:hover,
+.detailsLink:focus-visible {
+  text-decoration: underline;
+}
+
+/* Stop list box: framed like the other panels */
 .stops {
-  padding: 1rem;
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem;
   border: 1px solid var(--color-border);
-  border-radius: 10px;
+  border-top: 6px solid var(--color-frame);
+  border-radius: 12px;
   background: var(--color-surface);
 }
 
-/* Numbered list of stops */
+/* "Your stops" heading with "Clear all" on the right */
+.stopsHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* "Clear all": a plain text button in link color */
+.clearAll {
+  border: 0;
+  background: none;
+  color: var(--color-accent-strong);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.clearAll:hover,
+.clearAll:focus-visible {
+  text-decoration: underline;
+}
+
+/* Message shown until at least two sales are picked */
+.stopsEmpty {
+  padding: 1rem;
+  border: 2px dashed var(--color-frame);
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* "3 stops over 2 days" line */
+.summary {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* One day's group of stops */
+.day {
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* Day label like "Sun, Nov 15" */
+.dayHeading {
+  color: var(--color-eyebrow);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Numbered stops for one day */
 .ordered {
   display: grid;
-  gap: 0.9rem;
+  gap: 0.5rem;
   margin: 0;
-  padding-left: 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+/* One stop: number circle, details, then the × button */
+.stop {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 10px;
+  background: var(--color-background);
+}
+
+.stopInfo {
+  display: grid;
+  flex: 1;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.stopTitle {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.stopTitle:hover,
+.stopTitle:focus-visible {
+  color: var(--color-accent-strong);
+  text-decoration: underline;
+}
+
+/* Round × button that removes a stop. 2rem is still easy to tap */
+.remove {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.remove:hover,
+.remove:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent-strong);
 }
