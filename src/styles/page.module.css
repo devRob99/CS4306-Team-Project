@@ -6,14 +6,17 @@
   padding: 2rem 1rem 3rem;
 }
 
-/* Heading area at the top of a page */
+/* Heading area at the top of a page: rounded box that fades from cream to tan */
 .hero {
-  padding: 1rem 0 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: linear-gradient(to right, var(--color-hero-start), var(--color-hero-end));
 }
 
 .eyebrow {
   margin-bottom: 0.75rem;
-  color: var(--color-primary);
+  color: var(--color-eyebrow);
   font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -39,19 +42,26 @@
   gap: 1rem;
 }
 
-/* White box that holds a page's main content */
+/* Off-white box that holds a page's main content, framed with a thick top and left border */
 .panel {
   padding: 1.25rem;
   border: 1px solid var(--color-border);
+  border-top: 6px solid var(--color-frame);
+  border-left: 6px solid var(--color-frame);
   border-radius: 12px;
   background: var(--color-surface);
 }
 
-/* Section heading and bullet lists inside panels */
+/* Section heading inside panels. inline-block makes the tan line only as wide as the words */
 .heading {
+  display: inline-block;
   margin-bottom: 0.75rem;
+  padding-bottom: 0.15rem;
+  border-bottom: 3px solid var(--color-hero-end);
   font-size: 1.1rem;
 }
+
+/* Section bullet lists inside panels */
 
 .list {
   display: grid;

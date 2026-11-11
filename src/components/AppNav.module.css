@@ -5,27 +5,28 @@
   gap: var(--space-2);
 }
 
-/* One nav link. The clear bottom border saves room for the hover line */
+/* One nav link, shown as a filled salmon button */
 .link {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap-target);
-  padding: 0 var(--space-2);
-  border-bottom: 2px solid transparent;
-  color: var(--color-text);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius);
+  background: var(--color-nav);
+  color: var(--color-on-primary);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
-  transition: border-color var(--transition-fast);
+  transition: background-color var(--transition-fast);
 }
 
-/* Terracotta line when hovering */
+/* Slightly darker salmon when hovering */
 .link:hover {
-  border-bottom-color: var(--color-accent);
+  background: var(--color-nav-hover);
 }
 
-/* The page you are on: green text with a green line */
-.current {
-  border-bottom-color: var(--color-primary);
-  color: var(--color-primary);
+/* The page you are on: dark red button. :hover is listed too so it stays dark red */
+.current,
+.current:hover {
+  background: var(--color-nav-current);
   font-weight: var(--font-weight-heading);
 }
