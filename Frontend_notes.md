@@ -36,7 +36,7 @@ Login is a placeholder on purpose; auth is outside the current MVP.
 ### Other fixes along the way
 
 - Tags are lowercased and de-duplicated when saved and when shown (fixed React's duplicate key warning)
-- No "Saturday" wording: the route page is "Plan your stops" and works for any day
+- The route page is "Plan your stops" and works for any day
 - Dates no longer show a day early (time zone bug), times show as "9:00 AM"
 
 ---
