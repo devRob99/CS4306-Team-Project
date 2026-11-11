@@ -2,7 +2,7 @@
 :root {
   /* Colors */
   --color-primary: #3E5B3F; /* Dark green: logo, card titles, tag text, links, keyboard focus outline */
-  --color-primary-hover: #2F4730; /* Darker green: the create form's submit button on hover */
+  --color-primary-hover: #2F4730; /* Darker green: not used right now (buttons use --color-button-hover). Kept for future dark-green hovers */
   --color-on-primary: #FFFFFF; /* White text on any filled color: buttons, nav links, logo */
   --color-sage: #A9BCA8; /* Soft green: form focus glow. Decoration only, too pale for text */
   --color-background: #F5EBDA; /* Warm cream: page background, tag pills */

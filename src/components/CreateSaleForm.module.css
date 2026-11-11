@@ -1,4 +1,6 @@
-/* Overall form layout */
+/* Styles for CreateSaleForm.js: the Create a sale form on the /create page */
+
+/* Overall layout: the form, then the result box under it. max-width keeps lines easy to read */
 .wrapper {
   display: grid;
   gap: 1.25rem;
@@ -7,9 +9,41 @@
 
 .form {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
+/* "Fields marked * are required" line at the top */
+.requiredNote {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* One section of the form (The basics / When / What's for sale): a cream box.
+   min-width: 0 stops a <fieldset> from growing wider than the page on a phone */
+.section {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1.25rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-background);
+}
+
+/* Section title, with the same tan underline as panel headings. float: left makes it
+   sit inside the cream box instead of on the box's border, which is where browsers put it */
+.legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 0.25rem;
+  padding: 0 0 0.15rem;
+  border-bottom: 3px solid var(--color-hero-end);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-heading);
+}
+
+/* One label + hint + input + error group */
 .field {
   display: grid;
   gap: 0.35rem;
@@ -42,12 +76,14 @@
 .input,
 .textarea {
   width: 100%;
+  min-height: var(--tap-target);
   padding: 0.65rem 0.75rem;
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: var(--color-surface);
   color: var(--color-text);
   font: inherit;
+  transition: border-color var(--transition-fast);
 }
 
 .textarea {
@@ -55,77 +91,60 @@
   resize: vertical;
 }
 
+.input:hover,
+.textarea:hover {
+  border-color: var(--color-frame);
+}
+
+/* Green border and soft sage glow on the field you are typing in */
 .input:focus,
 .textarea:focus {
   border-color: var(--color-primary);
   outline: 3px solid var(--color-sage);
 }
 
-/* Error messages */
+/* Red border on a field with an error. aria-invalid is set by the describe() helper */
+.input[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+/* Error messages under a field */
 .error {
   color: var(--color-error);
   font-size: 0.9rem;
   font-weight: 600;
 }
 
-/* Save button */
+/* "Will show as:" tag preview under the Tags box */
+.preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* The tag pills already have a top margin for cards; remove it here so they line up with the label */
+.preview > div {
+  margin-top: 0;
+}
+
+.previewLabel {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* Save button: the look comes from buttons.module.css; this just keeps it from stretching full width */
 .submit {
   justify-self: start;
-  min-height: 2.75rem;
-  padding: 0.65rem 1rem;
-  border: 0;
-  border-radius: 6px;
-  background: var(--color-primary);
-  color: var(--color-on-primary);
-  cursor: pointer;
-  font: inherit;
-  font-weight: 800;
 }
 
-.submit:hover,
-.submit:focus-visible {
-  background: var(--color-primary-hover);
-}
-
-/* Old preview box. Not used by the form any more */
-.preview {
-  padding: 1.25rem;
-  border: 1px solid var(--color-sage);
-  border-radius: 8px;
-  background: var(--color-background);
-}
-
-.previewTitle {
-  margin-bottom: 0.4rem;
-  font-size: 1.1rem;
-}
-
-/* "Sale saved" message and its link */
-.previewText {
-  color: var(--color-text);
-  line-height: 1.5;
-}
-
-.statusLink {
-  color: var(--color-primary);
-  font-weight: 800;
-}
-
-.statusLink:hover,
-.statusLink:focus-visible {
-  color: var(--color-accent-strong);
-}
-
-/* Old preview code block. Not used by the form any more */
-.previewCode {
-  margin-top: 0.85rem;
-  padding: 1rem;
-  overflow-x: auto;
-  border-radius: 6px;
+/* Green-striped box shown after a sale saves (the red error version is .errorState in page.module.css) */
+.successState {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-left: 6px solid var(--color-button);
+  border-radius: 12px;
   background: var(--color-surface);
-  color: var(--color-text);
-  font-size: 0.9rem;
-  line-height: 1.5;
 }
 
 /* Phone width: stack the time fields */

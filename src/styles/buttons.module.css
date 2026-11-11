@@ -19,6 +19,12 @@
   transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
+/* Faded look while a button can't be pressed, e.g. "Saving..." on the Create form */
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 /* Main action: solid sage green */
 .primary {
   background: var(--color-button);
