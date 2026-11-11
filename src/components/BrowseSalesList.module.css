@@ -1,17 +1,22 @@
-/* Stacks the filters above the sale list */
+/* Styles for BrowseSalesList.js: the filter bar, results line and card grid on the Browse page */
+
+/* Stacks the filter bar, the results line and the cards */
 .wrap {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
-/* Row of search and filter fields */
-.filters {
+/* Filter bar: a cream box holding the search, date and tag fields in a row (they wrap on a phone) */
+.filterBar {
   display: flex;
   flex-wrap: wrap;
-  align-items: end;
-  gap: 0.75rem;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: var(--color-background);
 }
 
+/* One label + field pair. flex: 1 1 11rem lets fields share the row and drop to a new line below 11rem */
 .field {
   display: grid;
   gap: 0.3rem;
@@ -19,51 +24,110 @@
   flex: 1 1 11rem;
 }
 
+/* The search box gets twice the space of the other fields */
+.fieldWide {
+  flex-grow: 2;
+}
+
+/* Small uppercase label above each field, same style as the detail page's Where/When labels */
 .label {
-  color: var(--color-text);
-  font-size: 0.85rem;
+  color: var(--color-eyebrow);
+  font-size: 0.8rem;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* Search box, date picker and tag dropdown */
 .input {
   width: 100%;
-  min-height: 2.5rem;
-  padding: 0.45rem 0.65rem;
+  min-height: var(--tap-target);
+  padding: 0.45rem 0.75rem;
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: var(--color-surface);
   color: var(--color-text);
   font: inherit;
+  transition: border-color var(--transition-fast);
 }
 
+.input:hover {
+  border-color: var(--color-frame);
+}
+
+/* Green border and soft sage glow on the field you are typing in */
 .input:focus {
   border-color: var(--color-primary);
   outline: 3px solid var(--color-sage);
 }
 
-/* Clear filters button */
-.clear {
-  min-height: 2.5rem;
-  padding: 0.45rem 0.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  background: var(--color-surface);
-  color: var(--color-text);
-  cursor: pointer;
-  font: inherit;
-  font-weight: 700;
+/* Line under the filter bar: count on the left, active filter chips on the right. Wraps on a phone */
+.resultsBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
 }
 
-.clear:hover,
-.clear:focus-visible {
-  border-color: var(--color-accent);
-}
-
-/* "Showing X of Y sales" line between the filters and the cards */
+/* "Showing X of Y sales" */
 .count {
   color: var(--color-text-muted);
   font-size: 0.9rem;
+}
+
+/* Row of active filter chips plus the "Clear all" button */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* One active filter chip, e.g. "clothes ×". Clicking it removes that filter */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding: 0.2rem 0.75rem;
+  border: 1px solid var(--color-sage);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: border-color var(--transition-fast);
+}
+
+.chip:hover,
+.chip:focus-visible {
+  border-color: var(--color-accent);
+}
+
+/* The × inside a chip */
+.chipX {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* "Clear all": a plain text button in link color */
+.clearAll {
+  min-height: 2rem;
+  padding: 0.2rem 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--color-accent-strong);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.clearAll:hover,
+.clearAll:focus-visible {
+  text-decoration: underline;
 }
 
 /* Grid of sale cards: as many 18rem-wide columns as fit, so 2-3 on desktop and 1 on a phone */

@@ -33,24 +33,29 @@ Login is a placeholder on purpose. Auth is outside the current MVP.
 - Create Sale success message links to the new sale
 - Simple stop list on `/route` (`src/components/RoutePlanner.js`): sorts picked sales by date and time, no route optimization
 - Theme settings live in CSS variables in `src/app/globals.css`
+- Restyle phases 1 to 4 (see the plan below)
+- Shared helpers in `src/lib/formatSale.js`: readable dates and 12-hour times, today's date, and `uniqueTags()`
+- Tags are lowercased and de-duplicated when a sale is saved and when tags are shown
+- No "Saturday" wording anywhere: the `/route` page is called "Plan your stops"
 
 ### Not done
 
-- Map
-- Route optimization
-- Restyle phases 2 to 6 below
+- Map (blocked on backend, see "Phase 4 — Map" in the older work plan below)
+- Route optimization (blocked on backend, see "Phase 5 — Route planning" below)
+- Restyle phases 5 to 7 below
 - Login page is a stub (keep it that way unless the team changes MVP)
 
 ### Restyle plan (current)
 
 This is the current plan. It replaces the older frontend phases further down where they overlap.
 
-1. Design tokens, fonts, header/nav, shared buttons
-2. `/browse` as cards (new SaleCard component, used inside `BrowseSalesList`) plus `/sales/[id]` layout, with empty and error states
-3. Home page hero and CTAs
-4. Restyle the existing search and filters on `/browse`
+1. ✅ Design tokens, fonts, header/nav, shared buttons. Colors: olive header, salmon nav buttons, sage and salmon buttons, cream background
+2. ✅ `/browse` as cards (`src/components/SaleCard.js`, used inside `BrowseSalesList`) plus `/sales/[id]` layout (Where/When boxes, sections), with empty and error states
+3. ✅ Home page: visitor-facing hero, three "How it works" steps (Find sales, Plan your stops, Post your own), and an "Upcoming sales" preview of the next 3 sales
+4. ✅ Browse search and filters: cream filter bar, "Showing X of Y" count, removable chips for each active filter, "Clear all"
 5. Create form visuals, including the existing success link
-6. Mobile polish
+6. `/route` page restyle: SaleCard-style cards, 12-hour times, empty and error boxes (still shows times like `13:00`)
+7. Mobile polish: final pass at phone width on every page
 
 ### My Branch
 
@@ -219,8 +224,9 @@ Steps:
 
 ## Next session (start here)
 
-1. Check Restyle Phase 1 in the browser, then commit it.
-2. Restyle Phase 2: `/browse` cards and `/sales/[id]` layout.
-3. Continue through the restyle plan in "Current Status", one phase at a time.
+1. Restyle Phase 5: Create form visuals.
+2. Restyle Phase 6: `/route` page.
+3. Restyle Phase 7: mobile polish on every page.
+4. Ask Roberto/Juan: are `latitude`/`longitude` (now in `supabase/schema.sql`) filled in when a sale is created, and which map library should we use? The Geoapify key is listed in `.env.example`.
 
 ---

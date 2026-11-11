@@ -11,6 +11,8 @@
   border: 1px solid transparent;
   border-radius: var(--radius);
   font-family: var(--font-heading);
+  /* <button> elements don't inherit the page's text size like links do, so set it so both match */
+  font-size: 1rem;
   font-weight: var(--font-weight-heading);
   text-decoration: none;
   cursor: pointer;

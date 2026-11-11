@@ -5,11 +5,13 @@
 
 import { useMemo, useState } from "react";
 import pageStyles from "@/styles/page.module.css";
+import buttonStyles from "@/styles/buttons.module.css";
 import styles from "./BrowseSalesList.module.css";
 import SaleCard from "./SaleCard";
-import { uniqueTags } from "@/lib/formatSale";
+import { formatSaleDate, uniqueTags } from "@/lib/formatSale";
 
-// Shows the search and filter fields, a "Showing X of Y" count, and a card for each matching sale.
+// Shows the filter bar, a "Showing X of Y" line with chips for the active filters,
+// and a card for each matching sale.
 // Takes: `sales`, the array of sale rows loaded by the Browse server page.
 export default function BrowseSalesList({ sales }) {
   // What the user has typed or picked in each filter. "" means that filter is off.
@@ -53,8 +55,9 @@ export default function BrowseSalesList({ sales }) {
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.filters}>
-        <label className={styles.field}>
+      {/* role="search" tells screen readers this box is for searching the list */}
+      <div className={styles.filterBar} role="search">
+        <label className={`${styles.field} ${styles.fieldWide}`}>
           <span className={styles.label}>Search</span>
           <input
             className={styles.input}
@@ -88,22 +91,67 @@ export default function BrowseSalesList({ sales }) {
             ))}
           </select>
         </label>
-        {filtersActive ? (
-          <button className={styles.clear} type="button" onClick={clearFilters}>
-            Clear filters
-          </button>
-        ) : null}
       </div>
 
-      {/* aria-live makes screen readers announce the new count when the filters change */}
-      <p className={styles.count} aria-live="polite">
-        Showing {filtered.length} of {sales.length} {sales.length === 1 ? "sale" : "sales"}
-      </p>
+      <div className={styles.resultsBar}>
+        {/* aria-live makes screen readers announce the new count when the filters change */}
+        <p className={styles.count} aria-live="polite">
+          Showing {filtered.length} of {sales.length} {sales.length === 1 ? "sale" : "sales"}
+        </p>
+
+        {/* One chip per active filter. Clicking a chip turns off just that filter */}
+        {filtersActive ? (
+          <div className={styles.chips}>
+            {query.trim() ? (
+              <button
+                className={styles.chip}
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label={`Remove search "${query.trim()}"`}
+              >
+                “{query.trim()}” <span className={styles.chipX} aria-hidden="true">×</span>
+              </button>
+            ) : null}
+            {date ? (
+              <button
+                className={styles.chip}
+                type="button"
+                onClick={() => setDate("")}
+                aria-label={`Remove date filter ${formatSaleDate(date)}`}
+              >
+                {formatSaleDate(date)} <span className={styles.chipX} aria-hidden="true">×</span>
+              </button>
+            ) : null}
+            {tag ? (
+              <button
+                className={styles.chip}
+                type="button"
+                onClick={() => setTag("")}
+                aria-label={`Remove tag filter ${tag}`}
+              >
+                {tag} <span className={styles.chipX} aria-hidden="true">×</span>
+              </button>
+            ) : null}
+            <button className={styles.clearAll} type="button" onClick={clearFilters}>
+              Clear all
+            </button>
+          </div>
+        ) : null}
+      </div>
 
       {filtered.length === 0 ? (
         <div className={pageStyles.emptyState}>
           <p className={pageStyles.stateTitle}>No sales match your filters.</p>
           <p className={pageStyles.meta}>Try a different search, or clear the filters to see every sale.</p>
+          <div className={pageStyles.actions}>
+            <button
+              className={`${buttonStyles.button} ${buttonStyles.secondary}`}
+              type="button"
+              onClick={clearFilters}
+            >
+              Clear filters
+            </button>
+          </div>
         </div>
       ) : (
         <ul className={styles.grid}>
