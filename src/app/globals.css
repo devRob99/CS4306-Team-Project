@@ -1,18 +1,37 @@
 /* Theme settings: change a value here and it updates across the whole site. */
 :root {
   /* Colors */
-  --color-primary: #315C45; /* Forest green: main buttons, logo, eyebrows, card titles, current nav page */
-  --color-primary-hover: #264936; /* Darker green: main button on hover */
-  --color-on-primary: #FFFFFF; /* Text on green: main buttons, logo */
+  --color-primary: #3E5B3F; /* Dark green: logo, card titles, tag text, links, keyboard focus outline */
+  --color-primary-hover: #2F4730; /* Darker green: the create form's submit button on hover */
+  --color-on-primary: #FFFFFF; /* White text on any filled color: buttons, nav links, logo */
   --color-sage: #A9BCA8; /* Soft green: form focus glow. Decoration only, too pale for text */
-  --color-background: #F8F6F0; /* Cream: page background, tag pills */
-  --color-surface: #FFFFFF; /* White: header, panels, cards, form inputs */
+  --color-background: #F5EBDA; /* Warm cream: page background, tag pills */
+  --color-surface: #FFFDF6; /* Off-white: panels, cards, form inputs */
   --color-accent: #C77D5B; /* Terracotta: hover lines and decoration. Too pale to hold or color text */
   --color-accent-strong: #A0573A; /* Dark terracotta: link text, date badges (anything containing text) */
   --color-text: #292E2A; /* Charcoal: main text everywhere */
-  --color-text-muted: #5E665F; /* Gray-green: taglines, hints, addresses, dates */
-  --color-border: #E8E7DF; /* Hairline border: header, panels, cards, inputs, secondary buttons */
+  --color-text-muted: #535A53; /* Gray-green: intro text, hints, addresses, dates. Dark enough to read on the tan hero */
+  --color-border: #E6DCC8; /* Warm hairline border: panels, cards, inputs */
   --color-error: #A33425; /* Red: form errors and required-field stars */
+
+  /* Header and nav colors */
+  --color-header: #6F7B5F; /* Olive green: header bar background */
+  --color-on-header: #FFFDF6; /* Cream: site name, tagline and logo ring in the header */
+  --color-nav: #C0675A; /* Salmon: nav link buttons */
+  --color-nav-hover: #A9564A; /* Darker salmon: nav link buttons on hover */
+  --color-nav-current: #9E3F3A; /* Dark red: nav button for the page you are on */
+
+  /* Button colors (buttons.module.css) */
+  --color-button: #5F7F55; /* Sage green: main buttons like "Create a sale" */
+  --color-button-hover: #4D6A44; /* Darker sage: main buttons on hover */
+  --color-button-alt: #C0675A; /* Salmon: second buttons like "Browse sales" */
+  --color-button-alt-hover: #A9564A; /* Darker salmon: second buttons on hover */
+
+  /* Hero and panel colors (page.module.css) */
+  --color-hero-start: #F0E4D0; /* Light cream: left side of the hero box fade */
+  --color-hero-end: #DCC5A3; /* Tan: right side of the hero box fade, and the line under panel headings */
+  --color-eyebrow: #2A6E52; /* Teal green: small uppercase label above page titles */
+  --color-frame: #9C968A; /* Gray-brown: thick top and left border on panels */
 
   /* Fonts. layout.js loads the font files and creates --font-dm-sans and --font-inter */
   --font-heading: var(--font-dm-sans), system-ui, sans-serif; /* Headings, site name, logo, buttons */
