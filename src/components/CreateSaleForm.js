@@ -1,9 +1,12 @@
+// The "Create a sale" form on the /create page. Checks the fields, then saves the sale
+// (and its items) to Supabase and shows a link to the new sale.
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import styles from "./CreateSaleForm.module.css";
 import { createClient } from "@/lib/supabase/client";
+import { uniqueTags } from "@/lib/formatSale";
 
 const emptyForm = {
   title: "",
@@ -53,6 +56,8 @@ function validateSale(values) {
   return errors;
 }
 
+// Turns the raw form text into a clean sale object, ready to save.
+// Takes: the form values. Returns: the sale with trimmed text, a tags array and an items array.
 function buildSaleDraft(values) {
   return {
     title: values.title.trim(),
@@ -61,7 +66,8 @@ function buildSaleDraft(values) {
     startTime: values.startTime,
     endTime: values.endTime,
     description: values.description.trim(),
-    tags: parseList(values.tags, ","),
+    // Tags are lowercased and repeats removed, so "Clothes, clothes" saves as just ["clothes"]
+    tags: uniqueTags(parseList(values.tags, ",")),
     items: parseList(values.items, "\n"),
   };
 }

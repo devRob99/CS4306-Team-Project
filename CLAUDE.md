@@ -4,7 +4,7 @@
 4-person undergraduate CS 4306 project. I (Tabitha) work on the frontend on branch `tabitha-dev`. Roberto and Juan own backend, database and algorithms. Sam is the other frontend developer.
 
 ## Stack
-Next.js App Router (JavaScript), CSS Modules, Supabase. Read README.md and TABITHA_NOTES.md first.
+Next.js App Router (JavaScript), CSS Modules, Supabase. Read README.md and Frontend_notes.md first.
 
 ## Hard rules
 - Plan first. Tell me the plan and the files you'll touch, then WAIT for my approval before editing.

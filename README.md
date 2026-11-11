@@ -3,7 +3,7 @@
 A web app for discovering local yard sales and planning an efficient route between them.
 
 Yard sales are currently announced through social media groups, which have no map, no filtering, and no way to plan a
-Saturday morning route. Yard Sail lets sellers post sales with optional item listings, and lets buyers find nearby sales
+route between sales. Yard Sail lets sellers post sales with optional item listings, and lets buyers find nearby sales
 and generate an optimized route between the ones they pick.
 
 Built for CS 4306 Software Engineering at Angelo State University.

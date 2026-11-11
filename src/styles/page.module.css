@@ -62,7 +62,6 @@
 }
 
 /* Section bullet lists inside panels */
-
 .list {
   display: grid;
   gap: 0.5rem;
@@ -85,7 +84,7 @@
   line-height: 1.6;
 }
 
-/* Sale cards on the Browse and Route pages */
+/* Simple sale cards on the Route page. Browse uses its own SaleCard component instead */
 .cardList {
   display: grid;
   gap: 0.75rem;
@@ -151,9 +150,11 @@
   line-height: 1.5;
 }
 
+/* "← Back to all sales" link above the detail page hero */
 .backLink {
   display: inline-flex;
   width: fit-content;
+  margin-bottom: 1rem;
   color: var(--color-accent-strong);
   font-weight: 700;
   text-decoration: none;
@@ -162,4 +163,150 @@
 .backLink:hover,
 .backLink:focus-visible {
   text-decoration: underline;
+}
+
+/* Where / When rows on the detail page: side by side on desktop, stacked on a phone */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.fact {
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  background: var(--color-background);
+}
+
+.factLabel {
+  color: var(--color-eyebrow);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Browsers indent <dd> by default; margin: 0 removes that */
+.factValue {
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* The time range sits on its own line under the date */
+.factExtra {
+  display: block;
+  color: var(--color-text-muted);
+}
+
+/* Description paragraph on the detail page. pre-line keeps the line breaks the seller typed */
+.bodyText {
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* Friendly box for "No sales yet" and "No matches" messages */
+.emptyState {
+  padding: 1.5rem;
+  border: 2px dashed var(--color-frame);
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* The centered button inside the empty box */
+.emptyState .actions {
+  justify-content: center;
+}
+
+/* Box for load errors: red stripe on the left so it stands out from normal content */
+.errorState {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-left: 6px solid var(--color-error);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+/* Bold first line inside the empty and error boxes */
+.stateTitle {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: var(--font-weight-heading);
+}
+
+/* Home page: space above each section below the hero */
+.section {
+  margin-top: 2rem;
+}
+
+/* Home page: section heading with a link on the right ("See all sales"). Wraps on a phone */
+.sectionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+/* Home page "How it works": three step boxes side by side, stacked on a phone */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One step box. Same frame as the panels so it matches the rest of the site */
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-top: 6px solid var(--color-frame);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+/* Round sage number badge at the top of each step */
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--color-button);
+  color: var(--color-on-primary);
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.stepTitle {
+  font-size: 1.1rem;
+}
+
+/* Arrow links like "Browse sales →". margin-top: auto pushes them to the bottom of each step box */
+.stepLink {
+  margin-top: auto;
+  color: var(--color-accent-strong);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.stepLink:hover,
+.stepLink:focus-visible {
+  text-decoration: underline;
+}
+
+/* Home page "Upcoming sales": cards side by side, stacked on a phone */
+.previewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }

@@ -59,3 +59,19 @@
 .clear:focus-visible {
   border-color: var(--color-accent);
 }
+
+/* "Showing X of Y sales" line between the filters and the cards */
+.count {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Grid of sale cards: as many 18rem-wide columns as fit, so 2-3 on desktop and 1 on a phone */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

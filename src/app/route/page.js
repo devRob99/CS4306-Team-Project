@@ -1,3 +1,5 @@
+// The /route page ("Plan your stops"): loads every sale and hands them to RoutePlanner,
+// where buyers tick the sales they want to visit and see them listed in order.
 import styles from "@/styles/page.module.css";
 import { createClient } from "@/lib/supabase/server";
 import RoutePlanner from "@/components/RoutePlanner";
@@ -6,6 +8,8 @@ export const metadata = {
   title: "Route | Yard Sail",
 };
 
+// Server page that loads all sales from Supabase. Takes no inputs.
+// Shows the page heading, plus an error, a "no sales" message, or the stop picker.
 export default async function RoutePage() {
   const supabase = await createClient();
 
@@ -18,10 +22,10 @@ export default async function RoutePage() {
     <main className={styles.page}>
       <section className={styles.hero}>
         <p className={styles.eyebrow}>Buyer workflow</p>
-        <h1 className={styles.title}>Saturday stop list</h1>
+        <h1 className={styles.title}>Plan your stops</h1>
         <p className={styles.intro}>
-          Choose the sales you want to visit. Selected stops are listed by date,
-          then start time.
+          Choose the sales you want to visit, on any day. Selected stops are
+          listed by date, then start time.
         </p>
       </section>
 
