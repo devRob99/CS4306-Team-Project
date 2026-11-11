@@ -139,3 +139,11 @@
   padding: 0;
   list-style: none;
 }
+
+/* Phone width: taller filter chips and "Clear all" so they're easier to tap with a finger */
+@media (max-width: 600px) {
+  .chip,
+  .clearAll {
+    min-height: 2.5rem;
+  }
+}

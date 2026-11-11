@@ -251,3 +251,19 @@
   border-color: var(--color-accent);
   color: var(--color-accent-strong);
 }
+
+/* Phone width: bigger × buttons in the stop list so they're easier to tap with a finger */
+@media (max-width: 600px) {
+  .remove {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Small phones: hide the date badge on picker cards so the title and address get more room.
+   The date is still shown in the text line under the title */
+@media (max-width: 420px) {
+  .badge {
+    display: none;
+  }
+}

@@ -147,9 +147,14 @@
   background: var(--color-surface);
 }
 
-/* Phone width: stack the time fields */
-@media (max-width: 560px) {
+/* Phone width: stack the start/end time fields, and use less padding inside each
+   form section since it already sits inside a panel */
+@media (max-width: 600px) {
   .timeGrid {
     grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 1rem;
   }
 }

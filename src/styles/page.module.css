@@ -22,10 +22,13 @@
   text-transform: uppercase;
 }
 
+/* Page title. clamp() grows the size with the screen width, between 2rem and 3.5rem.
+   overflow-wrap: anywhere breaks a very long word (like a long sale title) instead of running off a phone screen */
 .title {
   margin-bottom: 0.75rem;
   font-size: clamp(2rem, 6vw, 3.5rem);
-  line-height: 1;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
 }
 
 .intro {
@@ -281,4 +284,25 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Phone width: trim the padding inside boxes so content gets more room, and make
+   the hero buttons share the full width so they're easy to tap */
+@media (max-width: 600px) {
+  .page {
+    padding-top: 1.25rem;
+  }
+
+  .hero {
+    padding: 1.25rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+
+  /* flex: 1 1 auto stretches each button; they still wrap onto two rows if too wide */
+  .actions > * {
+    flex: 1 1 auto;
+  }
 }
