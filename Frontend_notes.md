@@ -196,9 +196,3 @@ Bring these to the next team meeting.
 
 ---
 
-## Next session (start here)
-
-1. Commit and push Phase 7 (mobile polish) if not done yet
-2. Open a Pull Request: `tabitha-dev` → `main` so the team sees the restyle
-3. Bring section 4 ("Needs a team decision") to the team
-4. Start Phase A (loading, 404, page titles)
