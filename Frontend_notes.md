@@ -1,228 +1,204 @@
-# Frontend NOTES
+# Frontend Notes
 
-## Project
-
-Yard Sail
-
-A web application for discovering local yard sales and planning efficient routes between multiple sales.
+Yard Sail: a web app for finding local yard sales and planning a route between them.
 
 CS 4306 team: Roberto / Juan (backend, database, algorithms), Sam / Tabitha (frontend).
+Tabitha's branch: `tabitha-dev`.
+
+**MVP:** Create Sale → Store Sale → Browse Sales → Filter/Search → Map → Route Planning.
+Login is a placeholder on purpose; auth is outside the current MVP.
 
 ---
 
-## MVP
+## 1. Where things stand
 
-Create Sale → Store Sale → Browse Sales → Filter/Search → Map → Route Planning
+| Page | URL | Status |
+|---|---|---|
+| Home | `/` | ✅ Hero, "How it works" steps, preview of the next 3 upcoming sales |
+| Browse | `/browse` | ✅ Filter bar (search, date, tag), removable filter chips, sale cards |
+| Sale detail | `/sales/[id]` | ✅ Where/When boxes, description, tags, items |
+| Create | `/create` | ✅ Saves to Supabase. 3 sections, live tag preview, clear errors, success box |
+| Plan your stops | `/route` | ✅ Pick upcoming sales; stops grouped by day, sorted by start time |
+| Log in | `/login` | Placeholder only (on purpose) |
+| Map | — | ⏳ Waiting on backend (coordinates) |
+| Route optimization | — | ⏳ Waiting on backend (algorithm) |
 
-Login is a placeholder on purpose. Auth is outside the current MVP.
+### Restyle (all 7 phases done)
 
----
+1. Colors, fonts, header/nav, shared buttons
+2. Browse as cards (`SaleCard`) + sale detail layout + empty/error boxes
+3. Home page: hero, steps, upcoming sales
+4. Browse filter bar and chips
+5. Create form
+6. Route page
+7. Mobile polish
 
-## Current Status
+### Other fixes along the way
 
-### Done
-
-- Next.js app running locally
-- Shared layout, header, and nav
-- Create Sale form validates and **saves to Supabase** (`sales`, then `sale_items`)
-- Browse lists sales from Supabase and links to detail
-- Sale detail loads one sale plus its items
-- Supabase clients exist: `src/lib/supabase/client.js` (browser), `server.js` (server pages), `proxy.js` (session refresh)
-- All routes have a `page.js`: `/`, `/browse`, `/sales/[id]`, `/create`, `/login`, `/route`
-- Search and filters on Browse (`src/components/BrowseSalesList.js`)
-- Create Sale success message links to the new sale
-- Simple stop list on `/route` (`src/components/RoutePlanner.js`): sorts picked sales by date and time, no route optimization
-- Theme settings live in CSS variables in `src/app/globals.css`
-- Restyle phases 1 to 7 (see the plan below)
-- Shared helpers in `src/lib/formatSale.js`: readable dates and 12-hour times, today's date, and `uniqueTags()`
-- Tags are lowercased and de-duplicated when a sale is saved and when tags are shown
-- No "Saturday" wording anywhere: the `/route` page is called "Plan your stops"
-
-### Not done
-
-- Map (blocked on backend, see "Phase 4 — Map" in the older work plan below)
-- Route optimization (blocked on backend, see "Phase 5 — Route planning" below)
-- Login page is a stub (keep it that way unless the team changes MVP)
-
-### Restyle plan (current)
-
-This is the current plan. It replaces the older frontend phases further down where they overlap.
-
-1. ✅ Design tokens, fonts, header/nav, shared buttons. Colors: olive header, salmon nav buttons, sage and salmon buttons, cream background
-2. ✅ `/browse` as cards (`src/components/SaleCard.js`, used inside `BrowseSalesList`) plus `/sales/[id]` layout (Where/When boxes, sections), with empty and error states
-3. ✅ Home page: visitor-facing hero, three "How it works" steps (Find sales, Plan your stops, Post your own), and an "Upcoming sales" preview of the next 3 sales
-4. ✅ Browse search and filters: cream filter bar, "Showing X of Y" count, removable chips for each active filter, "Clear all"
-5. ✅ Create form: three sections (The basics / When / What's for sale), placeholders and hints, live tag preview and item count, red border and focus jump on errors, green success box with "View your sale"
-6. ✅ `/route` page: only upcoming sales, clickable picker cards with date badges, 12-hour times, sticky "Your stops" box grouped by day with numbered stops and × to remove, empty and error boxes
-7. ✅ Mobile polish: nav links share one row on phones, long titles wrap, less padding in nested boxes, full-width hero buttons, bigger chips and × buttons, Route badge hidden on small phones
-
-### My Branch
-
-tabitha-dev
+- Tags are lowercased and de-duplicated when saved and when shown (fixed React's duplicate key warning)
+- No "Saturday" wording: the route page is "Plan your stops" and works for any day
+- Dates no longer show a day early (time zone bug), times show as "9:00 AM"
 
 ---
 
-## How the app works (quick)
+## 2. How the app works
 
-### Routing
+### Pages and routing
 
-- `src/app/layout.js` wraps every page (header + nav)
-- `src/app/page.js` is `/` (home)
-- A folder with `page.js` is a URL. Extra names like `create_page.js` are just modules; they are not routes.
+- A folder in `src/app/` with a `page.js` is a URL (e.g. `src/app/browse/page.js` → `/browse`)
+- `src/app/layout.js` wraps every page with the header and nav
+
+### Server pages vs client components
+
+- **Server pages** (`page.js` files) load data from Supabase before the page is sent. They can't use `useState` or `onClick`.
+- **Client components** (files starting with `"use client"` in `src/components/`) handle anything interactive: forms, filters, checkboxes.
+- Pattern used everywhere: the server page loads the data, then passes it into a client component as a prop.
 
 ### Data
 
-Tables already used:
-
-- `sales`: `id`, `title`, `address`, `sale_date`, `start_time`, `end_time`, `description`, `tags` (array of strings)
+- `sales`: `id`, `title`, `address`, `sale_date`, `start_time`, `end_time`, `description`, `tags` (array), plus `user_id`, `created_at`, `latitude`, `longitude` (these last ones aren't used by the frontend yet)
 - `sale_items`: `id`, `sale_id`, `name`
-
-Form fields are camelCase (`date`, `startTime`). Database columns are snake_case (`sale_date`, `start_time`). `CreateSaleForm.js` maps between them.
-
-No latitude/longitude yet. Map and routing need backend schema work first.
-
-Env (`.env.local`, never commit):
-
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-
-### Frontend ↔ Supabase
-
-- Client Components (`'use client'`, forms, filters): `createClient()` from `src/lib/supabase/client.js`
-- Server Components (browse, detail): `await createClient()` from `src/lib/supabase/server.js`
-- Do not put `useState` / `onClick` in Server Component pages. Put interactivity in a `'use client'` child under `src/components/`.
+- Form fields are camelCase (`startTime`); database columns are snake_case (`start_time`). `CreateSaleForm.js` maps between them.
+- Full schema: `supabase/schema.sql` (reference only, don't run it)
+- Env vars go in `.env.local` (never commit): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `GEOAPIFY_API_KEY`
 
 ### Key files
 
-- Create: `src/app/create/` + `src/components/CreateSaleForm.js` + `CreateSaleForm.module.css`
-- Browse: `src/app/browse/`
-- Detail: `src/app/sales/[id]/`
-- Login stub: `src/app/login/`
-- Shared layout styles: `src/styles/page.module.css`
-- Old HTML mockup (`html/`, `css/`): not the running app; do not edit those for new features
+| What | File |
+|---|---|
+| Colors, fonts, spacing (change here, updates everywhere) | `src/app/globals.css` |
+| Shared page layout, hero, panels, empty/error boxes | `src/styles/page.module.css` |
+| Shared buttons (`.button` + `.primary` / `.secondary`) | `src/styles/buttons.module.css` |
+| Date/time/tag helpers (`formatSaleDate`, `formatTimeRange`, `uniqueTags`, ...) | `src/lib/formatSale.js` |
+| One sale card (Home + Browse) | `src/components/SaleCard.js` |
+| Browse filters + card grid | `src/components/BrowseSalesList.js` |
+| Create form | `src/components/CreateSaleForm.js` |
+| Route picker + stop list | `src/components/RoutePlanner.js` |
+| Header + nav | `src/components/AppHeader.js`, `AppNav.js` |
+| Supabase clients (**don't edit**) | `src/lib/supabase/` |
+| Old HTML prototype (**don't edit**) | `html/`, `css/` |
+
+### Code conventions
+
+- Comment at the top of every file, on every function/component, and on any non-obvious block
+- `BACKEND:` marks where the frontend talks to Supabase; `LATER:` marks features waiting on data
+- Every CSS group has a one-line comment; every color variable in `globals.css` says where it's used
+- Done means: `npm run lint` passes, create → browse → detail works, looks right on desktop and phone
 
 ---
 
-## Work plan (frontend-first)
+## 3. Next plan: what we can do now (no backend needed)
 
-Stay on UI until Roberto/Juan add coordinates and a route approach. Map without lat/lng would be fake. Auth is deferred.
+Ordered by value for the demo. Each phase is small and can be tested on its own.
 
----
+### Phase A: Loading, 404 and page titles (quick polish)
 
-### Phase 0 — Restore routes
+**Why:** The sale detail page can take ~2 seconds to load and shows nothing while it waits. A bad sale link shows Next.js's plain default 404. Every sale's browser tab just says "Sale details".
 
-**Why:** Next.js App Router only serves `page.js`. Renamed files break those URLs.
+1. `loading.js` for Browse, detail, Route and Home: simple placeholder cards that show while Supabase loads
+2. `src/app/not-found.js` (and one for `/sales/[id]`): friendly "This sale doesn't exist" page with Browse link
+3. `generateMetadata` on `/sales/[id]` so the tab shows the sale's title (also helps when sharing links)
+4. Login page: replace the "static prototype" wording with a friendly "Accounts are coming soon" message
 
-Steps:
+### Phase B: "Get directions" with the address we already have
 
-1. Confirm which files exist under `src/app/create`, `browse`, `sales/[id]`, and `login`.
-2. For each route, have a `page.js` (rename back, or keep the extra file and make `page.js` re-export it).
-3. Run `npm run dev` and open `/`, `/create`, `/browse`, `/login`.
-4. Create a sale, then open `/browse` and click through to `/sales/<id>`.
-5. Do not start styling until those four routes load.
+**Why:** This gives buyers real directions **today**, without coordinates or a map library. It's not fake: it opens Google Maps with the sale's real address, and Google works out the route.
 
----
+1. Detail page: "Get directions" button → `https://www.google.com/maps/dir/?api=1&destination=<address>`
+2. Route page: "Open route in Google Maps" button that sends all picked stops, in our order, as one trip (Google's link supports up to about 9 stops)
+3. No API key, no new dependency, it's just a link
 
-### Phase 1 — Restyle browse and sale detail
+### Phase C: Add to route from anywhere
 
-**Why:** Data loading already works. The UI is still a raw list. Highest demo value, lowest risk. Do not change the Supabase queries unless a field is missing.
+**Why:** Right now you can only pick stops on the Route page, and refreshing the page loses your picks. Buyers find sales on Browse and detail, so that's where "Add to route" belongs.
 
-Steps:
+1. Save picked sale ids in the browser (`localStorage`) so picks survive a refresh and moving between pages
+2. "Add to route" / "Added ✓" button on each `SaleCard` and on the detail page
+3. Small count in the nav, e.g. "Route (3)"
+4. Route page reads the same saved picks
 
-1. Read `browse` page and `sales/[id]` page. Note fields already on screen: title, address, date, times, tags, description, items.
-2. Restyle `/browse` into cards or a clean list (use `page.module.css` and/or a new CSS module). Keep the link to `/sales/[id]`.
-3. Handle empty list (`No sales yet`) and load error in the same layout.
-4. Restyle `/sales/[id]`: header, address/date/time block, tags, description, item list, back link.
-5. Check desktop and a narrow mobile width.
-6. Confirm home, create, and nav still look consistent (shared header/colors).
+### Phase D: Smarter stop list
 
----
+**Why:** Sorting by start time is a good start, but it doesn't warn you about problems.
 
-### Phase 2 — Filter / search on browse
+1. Warn when a stop closes before an earlier stop opens (you can't get there in time)
+2. Warn when a picked sale is today and already over
+3. Show the total time window for each day (e.g. "8:00 AM – 2:00 PM")
 
-**Why:** Next MVP step after browse. Browse is a Server Component, so filters must live in a client child.
+### Phase E: Better Browse
 
-Steps:
+**Why:** As more sales are added, buyers need quicker ways to narrow the list.
 
-1. Create something like `src/components/BrowseSalesList.js` with `'use client'`.
-2. Pass the `sales` array from the server page into that component. Keep the `select` on the server page.
-3. Add a text search over title and address.
-4. Add optional filters: date, and tags if they exist on the sale.
-5. Show a “no matches” state when filters hide everything.
-6. If the list stays small, client-side filter is enough. Ask backend later if they want SQL `ilike` / tag overlap.
+1. Quick date chips: "Today", "This weekend", "Next 7 days"
+2. Hide past sales by default, with a "Show past sales" toggle
+3. Sort dropdown: soonest first / newest posted
 
----
+### Phase F: Create form safety
 
-### Phase 3 — Create Sale UX polish
+**Why:** Stop easy mistakes before they're saved.
 
-**Why:** Save already works. The old live preview was removed. Buyers/sellers should see a clear success path.
+1. Don't allow dates in the past (`min` on the date field + a validation message)
+2. Character limits on title and description, with a counter
+3. Warn before leaving the page with unsaved typing
 
-Steps:
+### Phase G: Sharing and calendar (optional extras)
 
-1. After a successful insert, show a success message that links to `/sales/<new id>`.
-2. Optionally restore a small live preview next to the form (not instead of saving).
-3. Keep validation as-is unless a field is confusing (address hint, tag/item format).
-4. Do not change table/column names without team agreement.
+1. "Share" button on the detail page (copies the link, or opens the phone's share menu)
+2. "Add to calendar" button that downloads an `.ics` file with the date, time and address
 
----
+### Phase H: Tidy-up and docs
 
-### Phase 4 — Map (blocked on backend)
-
-**Why:** Addresses are plain text. Pins need coordinates.
-
-Wait for Roberto/Juan:
-
-- lat/lng (or geocoding) on `sales`
-- which map library the team wants
-
-Then frontend steps:
-
-1. Add a `/map` (or map section on browse) as a client component.
-2. Plot sales that have coordinates.
-3. Clicking a pin should go to `/sales/[id]`.
-4. Do not invent fake pins.
+1. Remove unused CSS classes in `page.module.css` (`.grid`, `.list`, `.placeholder`)
+2. Update `README.md`: the "Sale Pages" section still says pages have "almost no styling", and the project structure is missing `route/`, `SaleCard`, `formatSale.js`
+3. Small tests for `formatSale.js` using Node's built-in test runner (`node --test`, no new dependency)
 
 ---
 
-### Phase 5 — Route planning (blocked on backend)
+## 4. Needs a team decision
 
-**Why:** This is the algorithms piece. Frontend only selects stops and displays the result.
+Bring these to the next team meeting.
 
-Wait for Roberto/Juan:
-
-- how a route is computed (API, server action, or library)
-- input/output shape (ordered sale ids, travel time, etc.)
-
-Then frontend steps:
-
-1. Let the buyer pick several sales (“add to route”) from browse or map.
-2. Send those ids (and locations) to the route function.
-3. Show ordered stops and a simple path on the map.
-4. Handle fewer than two selected sales.
-
----
-
-### Phase 6 — Leave login alone
-
-**Why:** Session refresh is already in `src/proxy.js`. The login page says auth is outside MVP.
-
-Steps:
-
-1. Keep `/login` as a short placeholder.
-2. Only build real sign-in if the team adds it to MVP.
+| Topic | Question | Why it matters |
+|---|---|---|
+| Geocoding | Should the Create form turn the address into `latitude`/`longitude` when a sale is saved (Geoapify key is already in `.env.example`)? Who owns that code, frontend or backend? | This is what unblocks the map. Without it every sale has empty coordinates. |
+| Map library | Which one? (e.g. Leaflet + OpenStreetMap is free; Geoapify has map tiles too) | Frontend can't start the map until this is picked. New dependency, so the team should agree. |
+| Route algorithm | What goes in and what comes out? (e.g. sale ids in → ordered ids + travel times out) | Frontend already has the picker and stop list. `compareStops` in `RoutePlanner.js` is marked as the spot to swap in. |
+| Security (RLS) | Is Row Level Security on for `sales` and `sale_items`? | Right now anyone with the public key may be able to insert or delete rows. |
+| Editing/deleting sales | Do sellers need to fix or remove a sale? | Needs auth (`user_id` is already in the table) or some other way to prove ownership. |
+| Photos | Are sale photos in scope? | Would need a Supabase Storage bucket. `SaleCard` has a `LATER:` spot for a photo. |
+| Demo data | Can backend add 10–15 realistic sample sales over the next few weeks? | Makes the demo look real and tests filters, Route grouping and the Home preview. |
+| Sam / Tabitha split | Who takes which phase? | Avoids two people editing the same file. |
 
 ---
 
-## Git (when you are ready to save work)
+## 5. Blocked on backend (frontend steps, ready to go)
 
-- Stay on `tabitha-dev` (or a `feature/...` branch off `main`). Do not commit to `main`.
-- `git status` → `git add` → `git commit` → `git push`
-- One pull request per feature, teammate review before merge.
+### Map (after coordinates + library are decided)
+
+1. Map section on Browse (or a `/map` page) as a client component
+2. One pin per sale that has coordinates; clicking a pin opens `/sales/[id]`
+3. Small map on the detail page (spot marked `LATER:`)
+4. Never invent pins for sales without coordinates
+
+### Route optimization (after the algorithm is ready)
+
+1. Send the picked sale ids to the route function
+2. Replace `compareStops` order with the optimized order
+3. Show travel time between stops and the path on the map
+
+---
+
+## 6. Git
+
+- Work on `tabitha-dev`. Never commit to `main` directly.
+- `git status` → `git add -A` → `git commit -m "..."` → `git push`
+- When a set of phases is done, open a Pull Request from `tabitha-dev` into `main` and have a teammate review it.
 
 ---
 
 ## Next session (start here)
 
-1. Ask Roberto/Juan: are `latitude`/`longitude` (now in `supabase/schema.sql`) filled in when a sale is created, and which map library should we use? The Geoapify key is listed in `.env.example`.
-
----
+1. Commit and push Phase 7 (mobile polish) if not done yet
+2. Open a Pull Request: `tabitha-dev` → `main` so the team sees the restyle
+3. Bring section 4 ("Needs a team decision") to the team
+4. Start Phase A (loading, 404, page titles)
